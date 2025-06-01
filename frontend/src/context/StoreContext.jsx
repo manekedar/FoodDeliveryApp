@@ -31,16 +31,30 @@ const StoreContextProvider = (props) => {
        }
     }
 
-     const getTotalCartAmount = () => {
-         let totalAmount = 0;
-         for(const item in cartItems){
-             if (cartItems[item] > 0) {
-                let itemInfo = food_list.find((product) =>product._id === item)
-                totalAmount += itemInfo.price * cartItems[item]
-             }
-         }
-         return totalAmount
-     }
+   //   const getTotalCartAmount = () => {
+   //       let totalAmount = 0;
+   //       for(const item in cartItems){
+   //           if (cartItems[item] > 0) {
+   //              let itemInfo = food_list.find((product) =>product._id === item)
+   //              totalAmount += itemInfo.price * cartItems[item]
+   //           }
+   //       }
+   //       return totalAmount
+   //   }
+
+        const getTotalCartAmount = () => {
+    let totalAmount = 0;
+    for (const item in cartItems) {
+        if (cartItems[item] > 0) {
+            const itemInfo = food_list.find((product) => product._id === item);
+            if (itemInfo) {
+                totalAmount += itemInfo.price * cartItems[item];
+            }
+        }
+    }
+    return totalAmount;
+}
+
 
      const loadCartData = async (token) =>{
         const response = await axios.post(url+"/api/cart/get",{},{headers:{token}})
@@ -49,6 +63,7 @@ const StoreContextProvider = (props) => {
 
      const fetchFoodList = async () =>{
         const response = await axios.get(url+"/api/food/list")
+        console.log(response.data.data)
         setFoodList(response.data.data)
      }
 

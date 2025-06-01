@@ -4,28 +4,26 @@ import cors from "cors";
 import 'dotenv/config';
 import connectDB from "./config/db.js";
 import foodRouter from "./routes/food.route.js";
-import path from "path";
-import { fileURLToPath } from 'url';
 import userRoute from "./routes/userRoutes.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
+import connectCloudinary from './config/cloudinary.js'
+//import bodyParser from 'body-parser'
 
 const app = express();
 const port = process.env.PORT || 4000;
 
-// Fix for __dirname in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
 
 // Middleware
 app.use(express.json());
 app.use(cors());
 
-// ✅ Serve static image files from uploads/
-app.use("/images", express.static(path.join(__dirname, "uploads")));
+
 
 await connectDB();
-
+await connectCloudinary();
+//app.use(bodyParser.json());
 // Routes
 app.get("/", (req, res) => {
   res.json({ message: "Welcome in backend!" });
