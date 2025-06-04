@@ -11,7 +11,7 @@ import Orders from './pages/Orders/Orders'
 
 const App = () => {
 
-   const url = "https://food-delivery-admin-app.vercel.app"
+   const url = "https://food-delivery-backend-app.vercel.app"
   return (
     <div>
        <Navbar/>
